@@ -1,0 +1,44 @@
+//sql code from student reegistration Form
+
+
+
+$student_table="CREATE TABLE if not exists student_info (
+    student_id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100),
+    email VARCHAR(100) UNIQUE,password VARCHAR(20),
+    age INT,
+    gender ENUM('male','female'),
+    course varchar(60),dob DATE,address varchar(200)
+)";
+
+if ($conn->query($student_table) === TRUE) {
+    echo "Table student_info created"."<br>";
+}
+//  else {
+//     echo "tablee exists " . $conn->error;
+// }
+
+
+$skills_table="CREATE TABLE  if not exists skills (skill_id INT PRIMARY KEY AUTO_INCREMENT, skill_name VARCHAR(100))";
+
+if ($conn->query($skills_table) === TRUE) {
+    echo "Table skills created"."<br>";
+} 
+// else {
+//     echo "tablee exists " . $conn->error;
+// }
+
+
+$mapping="CREATE TABLE if not exists student_skills (id INT PRIMARY KEY AUTO_INCREMENT,student_id INT,skill_id INT,
+    FOREIGN KEY (student_id) REFERENCES student_info(student_id),
+    FOREIGN KEY (skill_id) REFERENCES skills(skill_id)
+)";
+
+if ($conn->query($mapping) === TRUE) {
+    echo "Table mapping (student_skills) created"."<br>";
+} 
+// else {
+//     echo "tablee exists " . $conn->error;
+// }
+
+
