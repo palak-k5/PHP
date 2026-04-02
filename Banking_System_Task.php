@@ -1,4 +1,5 @@
 <?php
+//if connecting to database
 //tables i need to create 
 //bank(bank_id , bank name ,totalusers) 
 //no need of total users aas it is deerrived  attribbutee , can be calculated
@@ -189,3 +190,120 @@ displayBank($bank);
 
 
 ?>
+
+
+
+
+<!-- Banking System Implementation
+Advanced Banking System (Nested Arrays Assignment)
+Objective
+Build a mini banking backend using nested arrays:
+• Account management
+• Transactions (deposit, withdraw, transfer)
+• Analytics & filtering
+Data Structure (MANDATORY)
+
+$bank = [
+    "accounts" => [
+        [
+            "id" => 1,
+            "name" => "A",
+            "balance" => 5000,
+            "transactions" => [
+                ["type"=>"deposit", "amount"=>2000],
+                ["type"=>"withdraw", "amount"=>500],
+            ]
+        ],
+        [
+            "id" => 2,
+            "name" => "B",
+            "balance" => 10000,
+            "transactions" => [
+                ["type"=>"deposit", "amount"=>3000],
+            ]
+        ],
+    ],
+    "meta" => [
+        "bank_name" => "ABC Bank",
+        "total_customers" => 2
+    ]
+];
+
+⚙️ Tasks
+1. Display Full Bank Data
+• Print bank name
+• Loop through all accounts
+• Show transactions per account
+2. Find Account by ID
+• Search and return account details
+3. Add New Account
+• Add a new account dynamically
+4. Deposit Money
+• Increase balance
+• Add transaction inside account
+5. Withdraw Money
+• Check balance before withdrawal
+• Deduct amount
+• Store transaction
+6. Transfer Money
+• Deduct from sender
+• Add to receiver
+• Record transaction in both accounts
+7. Flatten Transactions
+Convert nested transactions into:
+
+$allTransactions = [
+    ["account_id"=>1, "type"=>"deposit", "amount"=>2000],
+];
+
+8. Total Bank Balance
+• Calculate total balance of all accounts
+9. Filter Accounts
+• Accounts with high balance
+• Accounts with low balance
+10. Sort Accounts
+• Sort accounts by balance (descending)
+11. Group Transactions by Type
+
+[
+  "deposit" => [...],
+  "withdraw" => [...]
+]
+
+12. Transaction Summary per Account
+
+[
+  1 => ["deposit"=>2000, "withdraw"=>500],
+  2 => ["deposit"=>3000, "withdraw"=>0]
+]
+
+13. Low Balance Detection
+• Identify accounts below threshold
+14. Add Interest
+• Add 5% interest to all accounts
+15. Remove Inactive Accounts
+• Accounts with no transactions
+Advanced Challenges
+1. Most Active Account
+• Account with highest number of transactions
+2. Highest Transaction in Bank
+• Find maximum transaction amount
+3. Multi-Level Grouping
+
+[
+  account_id => [
+      "deposit" => [...],
+      "withdraw" => [...]
+  ]
+]
+
+4. Convert to API Response
+
+echo json_encode($bank, JSON_PRETTY_PRINT);
+
+5. Pagination
+• Show limited accounts per page
+Constraints
+• Arrays only (no database)
+• No OOP
+• Clean structure required -->
