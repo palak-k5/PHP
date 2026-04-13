@@ -3,8 +3,8 @@
 //verify user login info
 
 session_start();
-//first unset vriablres and then detroy
+//first unset variables and then destroy
 session_unset();
 session_destroy();
-echo "you hve been logged out";
+echo "you have been logged out";
 ?> 
