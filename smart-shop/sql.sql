@@ -11,10 +11,9 @@ create table cart(id int primary key auto_INCREMENT,item_name varchar(50), user_
 
 ;
 
-
-    alter table users drop column email;
-    delete from users where id=100;
-        delete from users where name="Palak";
+-- alter table users drop column email;
+-- delete from users where id=100;
+-- delete from users where name="Palak";
 
 
 INSERT INTO cart (id, item_name, user_id) VALUES (100, 'Mobile', 125);
