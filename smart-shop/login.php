@@ -20,7 +20,7 @@
             $user=$_POST['username']??"";
             $password=$_POST['password']??"";
 
-            if(empty($user) || empty($password))
+        if(empty($user) || empty($password))
             {
                 echo "Please fill all fields";
             }
@@ -30,9 +30,12 @@
                 $result=($conn->query($sql))->fetch_assoc();
                 if($result)
                 {
+                    // echo $result['id'];
+                    // die;
                     if(password_verify($password, $result['password']))
                     {
                         $_SESSION['user'] = $user;
+                        $_SESSION['user_id']=$result['id'];
                         header("Location: index.php");
                         exit();
                     }
@@ -43,7 +46,7 @@
                 }
                 else
                 {
-                    echo "Add user to database , user does not exists";
+                    echo "user does not exists";
                 }
                 
             }

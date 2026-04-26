@@ -1,23 +1,24 @@
-
-
 <?php
-// require "db.php";
-
+require "db.php";
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 session_start();
 
-// if(!isset($_SESSION['user']))
-//     {
-
-//     }
+if(!isset($_SESSION['user']))
+    {
+    header("Location: login.php");
+    exit();
+    }
 if(isset($_GET['category'])) {
     setcookie("category", $_GET['category'], time()+15, "/");
     header("Location: index.php");
     exit();
 }
+// do sessions persist data even after complete browser close or just maintain across tabs
 
-if(!isset($_SESSION['cart'])){
-    $_SESSION['cart'] = [];
-}
+// if(!isset($_SESSION['cart'])){
+//     $_SESSION['cart'] = [];
+// }
 ?>
 
 <!DOCTYPE html>
@@ -40,16 +41,12 @@ if(!isset($_SESSION['cart'])){
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <h4 class="mb-0">🛒 Smart Shop</h4>
 
-                        <?php if(isset($_SESSION['user'])) { ?>
                             <div>
                                 <small class="text-muted me-2">
                                     <?= $_SESSION['user'] ?>
                                 </small>
                                 <a href="logout.php" class="btn btn-danger btn-sm">Logout</a>
                             </div>
-                        <?php } else { ?>
-                            <a href="login.php" class="btn btn-danger btn-sm">Login</a>
-                        <?php } ?>
                     </div>
 
                     <div class="mb-3">
@@ -65,6 +62,7 @@ if(!isset($_SESSION['cart'])){
 
                     <div class="alert alert-secondary py-2">
                         <?php
+                        // var_dump($_SESSION);
                         if(isset($_COOKIE['category'])) {
                             echo "Selected: <b>".$_COOKIE['category']."</b>";
                         } else {
@@ -76,18 +74,28 @@ if(!isset($_SESSION['cart'])){
                     <div class="mb-3">
                         <h6 class="text-muted">Cart</h6>
 
-                        <?php if(empty($_SESSION['cart'])) { ?>
-                            <p class="text-muted small">Cart is empty</p>
-                        <?php } else { ?>
-                            <ul class="list-group list-group-sm">
-                                <?php foreach($_SESSION['cart'] as $item){ ?>
-                                    <li class="list-group-item py-1">
-                                        <?= $item ?>
-                                    </li>
-                                <?php } ?>
-                            </ul>
-                        <?php } ?>
+                        <?php
+                            $user_id = $_SESSION['user_id']; 
+
+                            $sql = "SELECT item_name FROM cart WHERE user_id = $user_id";
+                            $result = $conn->query($sql);
+
+                            if(!$result){
+                                echo "<p class='text-danger small'>Error fetching cart</p>";
+                            } 
+                            elseif($result->num_rows == 0) { ?>
+                                <p class="text-muted small">Cart is empty</p>
+                            <?php } else { ?>
+                                <ul class="list-group list-group-sm">
+                                    <?php while($row = $result->fetch_assoc()){ ?>
+                                        <li class="list-group-item py-1">
+                                            <?= $row['item_name'] ?>
+                                        </li>
+                                    <?php } ?>
+                                </ul>
+                            <?php } ?>
                     </div>
+
 
                     <div class="mb-3">
                         <h6 class="text-muted">Add Items</h6>
